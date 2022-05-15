@@ -90,15 +90,22 @@ class SinglyLinkedList
         this.length++
         return node
     }
+    get(index){
+        if (index < 0 || index >= this.length) return null
+
+        let current = this.head
+        for (let i = 0;i<index;i++) current = current.next
+
+        return current
+    }
 }
 
 list = new SinglyLinkedList()
 
-console.log('original =>',list)
-list.unshift('carlos')
-list.unshift('Eduardo')
-list.unshift('Alemeida')
-console.log('atual =>',list)
+list.push('carlos')
+list.push('Eduardo')
+list.push('Alemeida')
+console.log('atual =>',list.get(1))
 // console.log('total',list)
 // console.log(list.pop())
 // console.log('pop',list)
