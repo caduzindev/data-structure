@@ -98,6 +98,13 @@ class SinglyLinkedList
 
         return current
     }
+    set(index,val){
+        let item = this.get(index)
+        if (!item) return false
+        item.val = val
+
+        return true
+    }
 }
 
 list = new SinglyLinkedList()
@@ -105,7 +112,9 @@ list = new SinglyLinkedList()
 list.push('carlos')
 list.push('Eduardo')
 list.push('Alemeida')
-console.log('atual =>',list.get(1))
+console.log('original =>',list)
+list.set(2,'Jose')
+console.log('atual =>',list)
 // console.log('total',list)
 // console.log(list.pop())
 // console.log('pop',list)
