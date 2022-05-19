@@ -105,16 +105,52 @@ class SinglyLinkedList
 
         return true
     }
+    insert(index,val){
+        if (index < 0 || val > this.length) return false
+
+        if (index === this.length) {
+            this.push(val)
+            this.length++
+            return true
+        }
+
+        if (index === 0) {
+            this.unshift(val)
+            this.length++
+            return true
+        }
+
+        let nodeExists = this.get(index)
+
+        if (!nodeExists) {
+            return false
+        }
+
+        let node = new Node(val)
+        let current = this.head
+
+        for (let i = 0;i<index+1;i++) {
+            if (i + 1 === index) {
+                node.next = current.next
+                current.next = node
+
+                break
+            }
+            current = current.next
+        }
+
+        this.length++
+        return true
+    }
 }
 
 list = new SinglyLinkedList()
 
 list.push('carlos')
-list.push('Eduardo')
-list.push('Alemeida')
-console.log('original =>',list)
-list.set(2,'Jose')
-console.log('atual =>',list)
-// console.log('total',list)
-// console.log(list.pop())
-// console.log('pop',list)
+list.push('almeida')
+
+console.log('old list', list)
+
+list.insert(1,'eduardo')
+
+console.log('actual list', list)
