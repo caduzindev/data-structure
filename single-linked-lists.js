@@ -29,7 +29,6 @@ class SinglyLinkedList
         this.length++
         return this
     }
-
     pop(){
         if (!this.head) return undefined
         if (this.length === 1) {
@@ -106,7 +105,7 @@ class SinglyLinkedList
         return true
     }
     insert(index,val){
-        if (index < 0 || val > this.length) return false
+        if (index < 0 || index > this.length) return false
 
         if (index === this.length) {
             this.push(val)
@@ -120,24 +119,11 @@ class SinglyLinkedList
             return true
         }
 
-        let nodeExists = this.get(index)
-
-        if (!nodeExists) {
-            return false
-        }
-
         let node = new Node(val)
-        let current = this.head
-
-        for (let i = 0;i<index+1;i++) {
-            if (i + 1 === index) {
-                node.next = current.next
-                current.next = node
-
-                break
-            }
-            current = current.next
-        }
+        let prev = this.get(index - 1)
+        let temp = prev.next
+        prev.next = node
+        node.next = temp
 
         this.length++
         return true
