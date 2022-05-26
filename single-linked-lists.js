@@ -128,15 +128,28 @@ class SinglyLinkedList
         this.length++
         return true
     }
+    remove(index) {
+        if (index < 0 || index >= this.length) return undefined
+        if (index === this.length-1) return this.pop().val
+        if (index === 0) return this.shift().val
+
+        let prev = this.get(index-1)
+        let removed = prev.next
+        let next = removed.next
+
+        prev.next = next
+        this.length--
+        return removed.val
+    }
 }
 
 list = new SinglyLinkedList()
 
 list.push('carlos')
+list.push('eduardo')
 list.push('almeida')
+list.push('silva')
 
 console.log('old list', list)
-
-list.insert(1,'eduardo')
-
+list.remove(1)
 console.log('actual list', list)
