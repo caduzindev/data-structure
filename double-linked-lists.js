@@ -28,11 +28,31 @@ class DoublyLinkedList {
 
         return this
     }
+
+    pop(){
+        if (!this.head) return undefined
+        let removed = this.tail
+        if (this.length <= 1){
+            this.tail = null
+            this.head = null
+            this.length = 0
+
+            return removed
+        }
+        this.tail = this.tail.prev
+        this.tail.next = null
+        removed.prev = null
+
+        this.length--
+        return removed
+    }
 }
 
 let list = new DoublyLinkedList()
 
 list.push('jose')
-list.push('manolo')
+list.push('almeida')
+list.push('campos')
 
+console.log('item removido',list.pop())
 console.log(list)
