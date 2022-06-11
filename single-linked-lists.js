@@ -6,7 +6,8 @@ class Node
         this.next = null
     }
 }
-
+// Serve para quando você apenas adicionar e remover itens, pois diferentemente de um array
+// Não e preciso reendexar os itens
 class SinglyLinkedList
 {
     constructor(){
@@ -167,6 +168,12 @@ list.push('carlos')
 list.push('eduardo')
 list.push('almeida')
 list.push('silva')
+
+/**
+carlos => null
+eduardo => carlos
+almeida => eduardo
+*/
 
 console.log('old list', list)
 list.reverse()
