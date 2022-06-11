@@ -65,6 +65,26 @@ class DoublyLinkedList {
         this.length--
         return removed
     }
+    unshift(val){
+        let node = new Node(val)
+        if (this.length === 0){
+            this.head = node
+            this.tail = node
+        } else {
+            node.next = this.head
+            this.head.prev = node
+            this.head = node
+
+            this.length++
+        }
+    }
+    printAllElements() {
+        let current = this.head
+        for (let i=0;i<=this.length;i++) {
+            console.log(current.val)
+            current = current.next
+        }
+    }
 }
 
 let list = new DoublyLinkedList()
@@ -73,5 +93,6 @@ list.push('jose')
 list.push('almeida')
 list.push('campos')
 
-console.log('item removido',list.shift())
-console.log(list)
+list.unshift('Paulin')
+
+list.printAllElements()
