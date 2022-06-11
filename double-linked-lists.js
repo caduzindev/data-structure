@@ -36,12 +36,31 @@ class DoublyLinkedList {
             this.tail = null
             this.head = null
             this.length = 0
+            removed.prev = null
 
             return removed
         }
         this.tail = this.tail.prev
         this.tail.next = null
         removed.prev = null
+
+        this.length--
+        return removed
+    }
+    shift(){
+        if (this.length===0) return undefined
+        let removed = this.head
+        if (this.length === 1){
+            this.head = null
+            this.tail = null
+            this.length = 0
+            removed.next = null
+
+            return removed
+        }
+        this.head = this.head.next
+        this.head.prev = null
+        removed.next = null
 
         this.length--
         return removed
@@ -54,5 +73,5 @@ list.push('jose')
 list.push('almeida')
 list.push('campos')
 
-console.log('item removido',list.pop())
+console.log('item removido',list.shift())
 console.log(list)
