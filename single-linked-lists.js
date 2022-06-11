@@ -149,12 +149,8 @@ class SinglyLinkedList
         let next;
         let prev = null;
         for(let i = 0; i < this.length; i++) {
-            // references old list
             next = node.next;
-            // updating new list using variable pass by reference of old list
-            // same as this.head.next x i (counter)
             node.next = prev;
-            // update variables for next run
             prev = node;
             node = next;
         }
