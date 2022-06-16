@@ -78,12 +78,27 @@ class DoublyLinkedList {
             this.length++
         }
     }
-    printAllElements() {
-        let current = this.head
-        for (let i=0;i<=this.length;i++) {
-            console.log(current.val)
-            current = current.next
+    get(index) {
+        if (index >= this.length || index < 0) return null
+        if (index === 0) return this.head
+        if (index+1 === this.length) return this.tail
+
+        let currentHead = null
+        let currentTail = null
+
+        if (index <= Math.floor(this.length/2)) currentHead = this.head
+        else currentTail = this.tail
+
+        if (currentHead) {
+            for (let i = 0;i<index;i++) currentHead = currentHead.next
+
+            return currentHead
         }
+
+        for (let i = index;i<this.length;i++) currentTail = currentTail.prev
+
+        return currentTail
+
     }
 }
 
@@ -93,6 +108,4 @@ list.push('jose')
 list.push('almeida')
 list.push('campos')
 
-list.unshift('Paulin')
-
-list.printAllElements()
+console.log(list.get(2))
