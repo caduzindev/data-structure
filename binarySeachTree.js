@@ -45,7 +45,21 @@ class BinarySearchTree
                 return this
             }
         }
+    }
 
+    find(val)
+    {
+        if (!this.root) return undefined
+        let next = this.root
+
+        while (next)
+        {
+            if (val === next.value) return next
+            if (val > next.value) next = next.rigth
+            else next = next.left
+        }
+
+        return undefined
     }
 }
 
@@ -59,4 +73,4 @@ tree.insert(2)
 tree.insert(16)
 tree.insert(7)
 
-console.log(tree.root)
+console.log(tree.find(16))
