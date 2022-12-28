@@ -1,27 +1,57 @@
 const fs = require('fs')
 
-function arrayMessagesToTree(messages) {
-  let table = new Map()
-
-  for (let msg of messages) {
-    if (!table.has(msg.id)) table.set(msg.id,{...msg, children:[]})
+class Node {
+  constructor(val,children) {
+    this.val = val
+    this.children = children
   }
+}
 
-  for (let msg of messages) {
-    const node = table.get(msg.id)
-    const parentId = node.parentId
+class Message {
+  arrayMessagesToTrees(messages) {
+    let table = new Map()
+    let roots = []
 
-    if (parentId === null) continue
+    for (let msg of messages) {
+      if (msg.parentId === null) roots.push(msg.id)
+      if (!table.has(msg.id)) table.set(msg.id,{...msg, children:[]})
+    }
 
-    const parentNode = table.get(parentId)
-    parentNode.children.push(node)
+    for (let msg of messages) {
+      const node = table.get(msg.id)
+      const parentId = node.parentId
 
-    table.set(parentId,parentNode)
+      if (parentId === null) continue
+
+      const parentNode = table.get(parentId)
+      parentNode.children.push(node)
+
+      table.set(parentId,parentNode)
+    }
+
+    return {
+      roots,
+      data: table
+    }
   }
+  buildTreeMessage(root,data) {
+    let node = new Node()
+    node.val = data.get(root)
+    node.children = []
 
-  return table.get('1')
+    for (const c of data.get(root).children) {
+      node.children.push(this.buildTreeMessage(c.id,data))
+    }
+
+    return node
+  }
 }
 
 const messages = fs.readFileSync('./messages.json',{ encoding: 'utf-8' })
 const parse = JSON.parse(messages)
-console.log(arrayMessagesToTree(parse.messages))
+const message = new Message()
+
+const { roots,data } = message.arrayMessagesToTrees(parse.messages)
+const trees = roots.map(root => message.buildTreeMessage(root,data))
+
+console.log(trees)
